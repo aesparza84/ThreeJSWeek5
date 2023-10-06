@@ -1,5 +1,5 @@
 # ThreeJSWeek5
-##When creating new
+## When creating new
 * Open VScode powershell
 *   npm init -y (should give json packages)
 *   npm install parcel -g
