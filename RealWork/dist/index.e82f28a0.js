@@ -668,8 +668,8 @@ const guiOptions = {
     Coneangle: .02,
     TorusColor: "#00FF00",
     wireFrame: true,
-    TorusSpeed: 1000,
-    TorusAngle: .02
+    TorusScale: 1,
+    TorusSpeed: 1000
 };
 gui.addColor(guiOptions, "SphereColor").onChange(function(e) {
     sphere.material.color.set(e);
@@ -693,11 +693,13 @@ gui.addColor(guiOptions, "TorusColor").onChange(function(e) {
 gui.add(guiOptions, "wireFrame").onChange(function(e) {
     torus.material.wireframe = e;
 });
+gui.add(guiOptions, "TorusScale", 1, 5);
 gui.add(guiOptions, "TorusSpeed", 10, 1000);
 var speed = .01;
 var coneSpeed = 1;
 var coneAngle = 1.5;
 var torSpeed = 1000;
+var torScale = 1;
 function animate(time) {
     //box.rotation.x = time/1000;
     //box.rotation.y = time/1000;
@@ -710,7 +712,8 @@ function animate(time) {
     torSpeed = guiOptions.TorusSpeed;
     torus.rotation.y = time / torSpeed;
     torus.rotation.x = time / 200;
-    console.log(torSpeed);
+    torScale = guiOptions.TorusScale;
+    torus.scale.set(torScale, torScale, 3);
     renderer.render(scene, camera);
 }
 //renderer.render(scene, camera);
