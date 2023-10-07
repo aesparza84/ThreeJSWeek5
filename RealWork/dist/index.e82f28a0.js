@@ -581,12 +581,8 @@ var height = window.innerHeight;
 var width = window.innerWidth;
 const renderer = new _three.WebGLRenderer();
 renderer.setSize(width, height);
-renderer.shadowMap = true;
+renderer.shadowMap.enabled = true;
 document.body.appendChild(renderer.domElement);
-const ambientLight = new _three.AmbientLight(0x334455);
-scene.add(ambientLight);
-const directionalLight = new _three.DirectionalLight(0x334455);
-scene.add(directionalLight);
 const scene = new _three.Scene();
 const camera = new _three.PerspectiveCamera(45, width / height, 0.1, 1000);
 const orbit = new (0, _orbitControlsJs.OrbitControls)(camera, renderer.domElement);
@@ -594,56 +590,130 @@ const axesHelper = new _three.AxesHelper(3);
 scene.add(axesHelper);
 const gridHelper = new _three.GridHelper(30);
 scene.add(gridHelper);
+//Light--------------------//
+const ambientLight = new _three.AmbientLight(0x222222);
+scene.add(ambientLight);
+const directionalLight = new _three.DirectionalLight(0x334455, 26);
+scene.add(directionalLight);
 const directionalLightHelper = new _three.DirectionalLightHelper(directionalLight);
 scene.add(directionalLightHelper);
-directionalLight.position(-20, 10, 0);
+const lightCameraHelper = new _three.CameraHelper(directionalLight.shadow.camera);
+scene.add(lightCameraHelper);
+directionalLight.shadow.camera.top = 40;
+directionalLight.shadow.camera.right = 40;
+directionalLight.shadow.camera.left = -40;
+directionalLight.shadow.camera.bottom = -40;
+directionalLight.position.set(-20, 10, 0);
 directionalLight.castShadow = true;
+//camera.position.set(1,2,4);
 camera.position.set(-10, 30, 30);
 orbit.update();
+//Shapes--------------------------------//
+//Box---------------------------//
 const boxGeo = new _three.BoxGeometry();
 const boxMat = new _three.MeshBasicMaterial({
-    color: 0x00FF00,
+    color: 0x44FF11,
     side: _three.DoubleSide
 });
 const box = new _three.Mesh(boxGeo, boxMat);
+scene.add(box);
+//Plane-------------//
 const planeGeo = new _three.PlaneGeometry(30, 30);
-const planetMat = new _three.MeshStandardMaterial();
-const plane = new _three.Mesh(planetGeo, planetMat);
+const planeMat = new _three.MeshStandardMaterial({
+    color: 0xFFFFFF,
+    side: _three.DoubleSide
+});
+const plane = new _three.Mesh(planeGeo, planeMat);
 plane.receiveShadow = true;
 scene.add(plane);
 plane.rotation.x = -0.5 * Math.PI;
+//Sphere-------------------------//
 const sphereGeo = new _three.SphereGeometry(4, 36, 36);
 const sphereMat = new _three.MeshStandardMaterial({
-    color: 0x00FF00,
-    wireframe: true
+    color: 0xFF4400,
+    wireframe: false
 });
-const sphere = new _three.Mesh(boxGeo, boxMat);
-sphere.position.set(-10, 10, 0);
+const sphere = new _three.Mesh(sphereGeo, sphereMat);
+sphere.castShadow = true;
+scene.add(sphere);
+sphere.position.set(-10, 10, 10);
+const coneGeo = new _three.ConeGeometry(3, 5, 25);
+const coneMat = new _three.MeshStandardMaterial({
+    color: 0x22FF88,
+    side: _three.DoubleSide
+});
+const cone = new _three.Mesh(coneGeo, coneMat);
+cone.castShadow = true;
+scene.add(cone);
+cone.position.set(5, 5, -5);
+const torusGeo = new _three.TorusGeometry(2, 1, 14, 24);
+const torusMat = new _three.MeshStandardMaterial({
+    color: 0xFF0000,
+    side: _three.DoubleSide
+});
+const torus = new _three.Mesh(torusGeo, torusMat);
+torus.castShadow = true;
+scene.add(torus);
+torus.position.set(1, 5, 0);
+torus.rotateY(4.8);
 const gui = new _datGui.GUI();
 const guiOptions = {
     SphereColor: "#00FF00",
     wireFrame: true,
-    speed: .02,
-    angle: .02
+    Speed: .02,
+    angle: .02,
+    BigConeColor: "#00FF00",
+    wireFrame: true,
+    Conespeed: .02,
+    Coneangle: .02,
+    TorusColor: "#00FF00",
+    wireFrame: true,
+    TorusSpeed: 1000,
+    TorusAngle: .02
 };
 gui.addColor(guiOptions, "SphereColor").onChange(function(e) {
     sphere.material.color.set(e);
 });
-gui.add(guiOptions, "wireframe").onChange(function(e) {
+gui.add(guiOptions, "wireFrame").onChange(function(e) {
     sphere.material.wireframe = e;
 });
 gui.add(guiOptions, "angle", 0, 1);
-gui.add(guiOptions, "speed", 0, 1);
-var angle = 0;
+gui.add(guiOptions, "Speed", 0, 1);
+gui.addColor(guiOptions, "BigConeColor").onChange(function(e) {
+    cone.material.color.set(e);
+});
+gui.add(guiOptions, "wireFrame").onChange(function(e) {
+    cone.material.wireframe = e;
+});
+gui.add(guiOptions, "Coneangle", -1, 1);
+gui.add(guiOptions, "Conespeed", 0, 1);
+gui.addColor(guiOptions, "TorusColor").onChange(function(e) {
+    torus.material.color.set(e);
+});
+gui.add(guiOptions, "wireFrame").onChange(function(e) {
+    torus.material.wireframe = e;
+});
+gui.add(guiOptions, "TorusSpeed", 10, 1000);
 var speed = .01;
+var coneSpeed = 1;
+var coneAngle = 1.5;
+var torSpeed = 1000;
 function animate(time) {
-    box.rotation.x = time / 1000;
-    box.rotation.y = time / 1000;
+    //box.rotation.x = time/1000;
+    //box.rotation.y = time/1000;
+    speed += guiOptions.Speed;
+    sphere.position.y = 10 * Math.abs(Math.sin(speed));
+    coneSpeed += guiOptions.Conespeed;
+    coneAngle += guiOptions.Coneangle;
+    cone.position.x = coneAngle * 0.1 * Math.sin(coneSpeed);
+    cone.position.y = coneAngle * 0.1 * Math.cos(coneSpeed);
+    torSpeed = guiOptions.TorusSpeed;
+    torus.rotation.y = time / torSpeed;
+    torus.rotation.x = time / 200;
+    console.log(torSpeed);
     renderer.render(scene, camera);
-    angle += guiOptions.speed;
-    sphere.position.y = 10 * Math.abs(Math.sin(angle));
-    renderer.render(camera, scene);
 }
+//renderer.render(scene, camera);
 renderer.setAnimationLoop(animate);
 
 },{"three":"ktPTu","three/examples/jsm/controls/OrbitControls.js":"7mqRv","dat.gui":"k3xQk"}],"ktPTu":[function(require,module,exports) {
