@@ -32,7 +32,6 @@ const gridHelper = new THREE.GridHelper(30);
 scene.add(gridHelper);
 
 camera.position.set(-10, 30, 30);
-orbit.update();
 //green box
 const boxGeo = new THREE.BoxGeometry();
 const boxMat = new THREE.MeshBasicMaterial({ color: 0x00FF00 });
@@ -59,6 +58,7 @@ scene.add(ambientLight);
 const spotLight = new THREE.SpotLight(0xFFFFFF);
 scene.add(spotLight);
 spotLight.position.set(-20,20,0);
+spotLight.decay = 0;
 spotLight.castShadow = true;
 const spotLightHelper = new THREE.SpotLightHelper(spotLight);
 scene.add(spotLightHelper);

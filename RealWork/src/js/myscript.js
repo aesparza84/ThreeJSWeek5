@@ -1,10 +1,15 @@
 import * as THREE from "three";
-import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js'
+import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js';
 import * as dat from 'dat.gui';
 
 import background from 'src/background.jpg'; // Credit: <a href="https://www.freepik.com/free-photo/abstract-flowing-neon-wave-background_15474089.htm#query=background&position=26&from_view=keyword">Image by rawpixel.com</a> on Freepik
 import stars from 'src/stars.jpg'; //https://www.pxfuel.com/en/free-photo-obmtg/download
-
+import one from 'img/one.jpg';
+import two from 'img/two.jpg';
+import thre from 'img/three.jpg';
+import four from 'img/four.jpg';
+import five from 'img/five.jpg';
+import six from 'img/six.jpg';
 
 var height = window.innerHeight;
 var width = window.innerWidth;
@@ -14,7 +19,7 @@ renderer.setSize(width, height);
 //renderer.setClearColor(0x334455);
 
 //#region background
-    //const textureLoader = new THREE.TextureLoader();    
+    const textureLoader = new THREE.TextureLoader();    
     //scene.background = textureLoader.load(stars);         //This one is just a static background
         //Sets the background of the project
     const cubeLoader = new THREE.CubeTextureLoader();
@@ -91,12 +96,45 @@ scene.add(spotLight);
 camera.position.set(-10,30,30);
 orbit.update();
 
+
+const mousePos = new THREE.Vector2();
+
+window.addEventListener('mousemove', function(e){
+    mousePos.x = (e.clientX / width) * 2-1;
+    mousePos.y = (e.clientY / height) * 2+1;
+})
+const rayCaster = new THREE.Raycaster();
+
+
+
 //Shapes--------------------------------//
     //Box---------------------------//
 const boxGeo = new THREE.BoxGeometry();
 const boxMat = new THREE.MeshBasicMaterial({color: 0x44FF11, side: THREE.DoubleSide});
 const box = new THREE.Mesh(boxGeo, boxMat);
-scene.add(box);
+//scene.add(box);
+
+    //Box2, uses a texture for the mesh
+    const boxCoolGeo = new THREE.BoxGeometry(4,4,4);
+    //const boxCoolMat = new THREE.MeshBasicMaterial({color: 0xFF0000, map: textureLoader.load(stars)});
+    //const boxCool = new THREE.Mesh(boxCoolGeo, boxCoolMat);
+
+    const boxCoolMaterials = 
+    [
+        new THREE.MeshBasicMaterial({map:textureLoader.load(one)}),
+        new THREE.MeshBasicMaterial({map:textureLoader.load(two)}),
+        new THREE.MeshBasicMaterial({map:textureLoader.load(thre)}),
+        new THREE.MeshBasicMaterial({map:textureLoader.load(four)}),
+        new THREE.MeshBasicMaterial({map:textureLoader.load(five)}),
+        new THREE.MeshBasicMaterial({map:textureLoader.load(six)})
+    ];
+
+    const boxCool = new THREE.Mesh(boxCoolGeo, boxCoolMaterials);
+
+    boxCool.position.y = 10;
+    boxCool.castShadow = true;
+    //boxCool.material.map = textureLoader.load(stars); This is another way to apply texture
+    scene.add(boxCool);
 
     //Plane-------------//
 const planeGeo = new THREE.PlaneGeometry(30,30);
@@ -206,6 +244,24 @@ function animate(time) {
     spotLight.penumbra = guiOptions.penumbra;
     spotLight.intensity = guiOptions.intensity;
     
+    rayCaster.setFromCamera(mousePos, camera);
+    const intersectObj = rayCaster.intersectObjects(scene.children);
+    console.log(intersectObj);
+
+    for (let index = 0; index < intersectObj.length; index++)
+    {
+        if (intersectObj[i].object.id === sphere.id)
+        {
+            intersectObj[i].object.material.color.set(0xFF0000);    
+        }
+
+        if (intersectObj[i].object.id === boxCool.id)
+        {
+            intersectObj[i].object.material.color.set(0x00FF00); //Or you can have it rotate when mouse over
+        }
+        
+    }
+
     spotLightHelper.update();
     renderer.render(scene, camera);
 }
