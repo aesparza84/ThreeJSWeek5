@@ -3,6 +3,12 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import * as dat from 'dat.gui';
 //import background from '../img/background.jpg'; // Credit: <a href="https://www.freepik.com/free-photo/abstract-flowing-neon-wave-background_15474089.htm#query=background&position=26&from_view=keyword">Image by rawpixel.com</a> on Freepik
 //import stars from '../img/stars.jpg'; //https://www.pxfuel.com/en/free-photo-obmtg/download
+import one from '../img/one.jpg';
+import two from '../img/two.jpg';
+import three from '../img/three.jpg';
+import four from '../img/four.jpg';
+import five from '../img/five.jpg';
+import six from '../img/six.jpg';
 
 
 var height = window.innerHeight;

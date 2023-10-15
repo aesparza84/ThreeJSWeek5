@@ -2,14 +2,14 @@ import * as THREE from "three";
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js';
 import * as dat from 'dat.gui';
 
-import background from 'src/background.jpg'; // Credit: <a href="https://www.freepik.com/free-photo/abstract-flowing-neon-wave-background_15474089.htm#query=background&position=26&from_view=keyword">Image by rawpixel.com</a> on Freepik
-import stars from 'src/stars.jpg'; //https://www.pxfuel.com/en/free-photo-obmtg/download
-import one from 'img/one.jpg';
-import two from 'img/two.jpg';
-import thre from 'img/three.jpg';
-import four from 'img/four.jpg';
-import five from 'img/five.jpg';
-import six from 'img/six.jpg';
+import background from '/src/background.jpg'; // Credit: <a href="https://www.freepik.com/free-photo/abstract-flowing-neon-wave-background_15474089.htm#query=background&position=26&from_view=keyword">Image by rawpixel.com</a> on Freepik
+import stars from '/src/stars.jpg'; //https://www.pxfuel.com/en/free-photo-obmtg/download
+import one from '../img/one.jpg';
+import two from '../img/two.jpg';
+import thre from '../img/three.jpg';
+import four from '../img/four.jpg';
+import five from '../img/five.jpg';
+import six from '../img/six.jpg';
 
 var height = window.innerHeight;
 var width = window.innerWidth;
@@ -17,6 +17,10 @@ var width = window.innerWidth;
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(width, height);
 //renderer.setClearColor(0x334455);
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(45, width/height, 0.1, 1000);
+const orbit = new OrbitControls(camera, renderer.domElement);
 
 //#region background
     const textureLoader = new THREE.TextureLoader();    
@@ -33,9 +37,7 @@ document.body.appendChild(renderer.domElement);
 
 
 
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(45, width/height, 0.1, 1000);
-const orbit = new OrbitControls(camera, renderer.domElement);
+
 
 const axesHelper = new THREE.AxesHelper(3);
 scene.add(axesHelper);
@@ -208,7 +210,7 @@ gui.add(guiOptions, 'TorusScale', 1, 5);
 gui.add(guiOptions, 'TorusSpeed', 10,1000);
 
 //------------------//
-gui.add(guiOptions, "ange", 0,1);
+gui.add(guiOptions, "angle", 0,1);
 gui.add(guiOptions, "penumbra", 0,1);
 gui.add(guiOptions, "intensity", 0,1);
 
