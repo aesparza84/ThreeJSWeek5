@@ -260,6 +260,63 @@ const mercury = new THREE.Mesh(mercuryGeo, mercuryMat);
 const mercuryOBJ = new THREE.Object3D();
 mercuryOBJ.add(mercury);
 scene.add(mercury);
+
+const venusGeo = new THREE.SphereGeometry(3.4, 36, 36);
+const venusMat = new THREE.MeshStandardMaterial({color: 0x554400, side: THREE.DoubleSide});
+const venus = new THREE.Mesh(venusGeo, venusMat);
+const venusOBJ = new THREE.Object3D();
+venusOBJ.add(venus);
+scene.add(venus);
+
+const earthGeo = new THREE.SphereGeometry(4, 20, 20);
+const earthMat = new THREE.MeshStandardMaterial({color: 0x114400, side: THREE.DoubleSide});
+const earth = new THREE.Mesh(earthGeo, earthMat);
+const earthOBJ = new THREE.Object3D();
+earthOBJ.add(earth);
+scene.add(earth);
+
+const marsGeo = new THREE.SphereGeometry(3.7, 20, 20);
+const marsMat = new THREE.MeshStandardMaterial({color: 0xFF1100, side: THREE.DoubleSide});
+const mars = new THREE.Mesh(marsGeo, marsMat);
+const marsOBJ = new THREE.Object3D();
+marsOBJ.add(mars);
+scene.add(mars);
+
+const jupiterGeo = new THREE.SphereGeometry(6, 20, 20);
+const jupiterMat = new THREE.MeshStandardMaterial({color: 0x337700, side: THREE.DoubleSide});
+const jupiter = new THREE.Mesh(jupiterGeo, jupiterMat);
+const jupiterOBJ = new THREE.Object3D();
+jupiterOBJ.add(jupiter);
+scene.add(jupiter);
+
+const saturnGeo = new THREE.SphereGeometry(5.5, 20, 20);
+const saturnMat = new THREE.MeshStandardMaterial({color: 0xFF3300, side: THREE.DoubleSide});
+const saturn = new THREE.Mesh(saturnGeo, saturnMat);
+const saturnOBJ = new THREE.Object3D();
+saturnOBJ.add(saturn);
+scene.add(saturn);
+
+const uranasGeo = new THREE.SphereGeometry(5, 20,20);
+const uranasMat = new THREE.MeshStandardMaterial({color: 0xFF3300, side: THREE.DoubleSide});
+const uranas = new THREE.Mesh(uranasGeo, uranasMat);
+const uranasOBJ = new THREE.Object3D();
+uranasOBJ.add(uranas);
+scene.add(uranas);
+
+const neptuneGeo = new THREE.SphereGeometry(4.5, 20, 20);
+const neptuneMat = new THREE.MeshStandardMaterial({color: 0x116600, side: THREE.DoubleSide});
+const neptune = new THREE.Mesh(neptuneGeo, neptuneMat);
+const neptuneOBJ = new THREE.Object3D();
+neptuneOBJ.add(neptune);
+scene.add(neptune);
+
+const plutoGeo = new THREE.SphereGeometry(1, 15, 15);
+const plutoMat = new THREE.MeshStandardMaterial({color: 0x223333, side: THREE.DoubleSide});
+const pluto = new THREE.Mesh(plutoGeo, plutoMat);
+const plutoOBJ = new THREE.Object3D();
+plutoOBJ.add(pluto);
+scene.add(pluto);
+
 //For rotating around Sun, in ANimation funciton. MercuryOBJ is essentially the holder for Mercury
 
     //mercury.position.set(sun.position.x+10, sun.position.y, sun.position.z);
