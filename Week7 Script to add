@@ -319,11 +319,44 @@ scene.add(pluto);
 
 //For rotating around Sun, in ANimation funciton. MercuryOBJ is essentially the holder for Mercury
 
-    //mercury.position.set(sun.position.x+10, sun.position.y, sun.position.z);
+    mercury.position.set(sun.position.x+10, sun.position.y, sun.position.z);
+    venus.position.set(sun.position.x+15, sun.position.y, sun.position.z);
+    earth.position.set(sun.position.x+20, sun.position.y, sun.position.z);
+    mars.position.set(sun.position.x+25, sun.position.y, sun.position.z);
+    jupiter.position.set(sun.position.x+30, sun.position.y, sun.position.z);
+    saturn.position.set(sun.position.x+35, sun.position.y, sun.position.z);
+    uranas.position.set(sun.position.x+40, sun.position.y, sun.position.z);
+    neptune.position.set(sun.position.x+45, sun.position.y, sun.position.z);
+    pluto.position.set(sun.position.x+50, sun.position.y, sun.position.z);
 
-    //sun.rotateY(.01);
-    //mercuryOBJ.rotateY(.04);
-    //mercury.rotateY(.03);
+    sun.rotateY(.01);
+
+    mercuryOBJ.rotateY(.04);
+    mercury.rotateY(.03);
+    
+    earthOBJ.rotateY(.01);
+    earth.rotateY(.04);
+
+    marsOBJ.rotateY(0.1);
+    mars.rotateY(0.03);
+
+    jupiterOBJ.rotateY(0.1);
+    jupiter.rotateY(0.03);
+
+    saturnOBJ.rotateY(0.1);
+    saturn.rotateY(0.03);
+
+    jupiterOBJ.rotateY(0.1);
+    jupiter.rotateY(0.03);
+
+    uranasOBJ.rotateY(0.1);
+    uranas.rotateY(0.03);
+
+    neptuneOBJ.rotateY(0.1);
+    neptune.rotateY(0.03);
+
+    plutoOBJ.rotateY(0.1);
+    pluto.rotateY(0.03);
 
 //At bottom of page...
 window.addEventListener('resize', function(){
