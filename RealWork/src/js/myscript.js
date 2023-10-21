@@ -207,9 +207,7 @@ const plane2 = new THREE.Mesh(plane2Geo, plane2Mat);
 scene.add(plane2);
 plane2.position.set(10,10,10);
 
-plane2.geometry.attributes.position.array[0] = 5*Math.random();
-plane2.geometry.attributes.position.array[1] = 5*Math.random();
-plane2.geometry.attributes.position.array[2] = 5*Math.random();
+
 
 //#region Planets
 const sunShaderMaterial = new THREE.ShaderMaterial({       //The better way of creating shaders, in Index
@@ -217,8 +215,8 @@ const sunShaderMaterial = new THREE.ShaderMaterial({       //The better way of c
     fragmentShader: document.getElementById('fragmentShader').textContent,
 });
 
-const sunGeo = new THREE.SphereGeometry(6,7,7);
-const sunMat = new THREE.MeshStandardMaterial({color: 0xFF0000, side: THREE.DoubleSide});
+const sunGeo = new THREE.SphereGeometry(6,5,5);
+const sunMat = new THREE.MeshStandardMaterial({color: 0xFF0000, wireframe: true});
 const sun = new THREE.Mesh(sunGeo, sunShaderMaterial);
 scene.add(sun);
 sun.position.set(0,-20,0);
@@ -484,6 +482,7 @@ function animate(time) {
     //     }
         
     // }
+   
     sun.rotateY(.01);
 
     mercuryOBJ.rotateY(.027);
@@ -512,6 +511,21 @@ function animate(time) {
 
     plutoOBJ.rotateY(0.005);
     pluto.rotateY(0.03);
+
+
+    plane2.geometry.attributes.position.array[0] = 5*Math.random();
+    plane2.geometry.attributes.position.array[1] = 5*Math.random();
+    plane2.geometry.attributes.position.array[2] = 5*Math.random();    
+    plane2.geometry.attributes.position.needsUpdate = true;
+
+    sun.geometry.attributes.position.array[11] = 3*Math.random();
+    sun.geometry.attributes.position.array[44] = 3*Math.random();
+    sun.geometry.attributes.position.array[66] = 3*Math.random();
+    sun.geometry.attributes.position.array[77] = 3*Math.random();
+
+    sun.geometry.attributes.position.needsUpdate = true;
+    
+
 
     //spotLightHelper.update();
     renderer.render(scene, camera);
